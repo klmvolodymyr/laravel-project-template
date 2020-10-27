@@ -29,7 +29,7 @@ class ImagesTable extends Migration
             $table->smallInteger('height', false, true)->nullable(false);
             $table->string('checksum', 255)->nullable(false);
             $table->smallInteger('language_id', false, true)->default(0);
-            $table->string('status', 128)->default(0);
+            $table->string('status', 30)->default(\App\Entities\Type\ImageStatusType::STATUS_NEW);
             $table->string('mime_type', 255)->nullable(false);
         });
     }

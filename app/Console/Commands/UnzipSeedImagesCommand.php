@@ -4,13 +4,8 @@
 namespace App\Console\Commands;
 
 use App\Services\FileService;
-use App\Services\FileServiceInterface;
-use App\Services\ImageUploader;
-use App\Services\ImageUploaderInterface;
 use App\Services\UnzipFileInterface;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 /**
  * Class UnzipSeedImagesCommand

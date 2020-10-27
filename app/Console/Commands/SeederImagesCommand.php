@@ -6,7 +6,6 @@ use App\Services\ImageUploader;
 use App\Services\ImageUploaderInterface;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 /**
  * Class SeederImagesCommand.php

@@ -2,7 +2,7 @@
 
 namespace App\DTO;
 
-use App\Models\Type\ImageStatusType;
+use App\Entities\Type\ImageStatusType;
 
 /**
  * Class CreateImageDTO

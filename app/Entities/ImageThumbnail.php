@@ -172,4 +172,12 @@ class ImageThumbnail
 
         return $this;
     }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getUuid(): UuidInterface
+    {
+        return $this->uuid;
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Entities\Type\ImageStatusType;
 use App\Models\Image;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -13,13 +14,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class ImagesRepository  extends EntityRepository implements ImagesRepositoryInterface
 {
-    private $em;
+    /**
+     * @inheritDoc
+     */
+    public function allActivePreview(): array
+    {
+        return $this->findBy([
+            'status' => ImageStatusType::ALL_ACTIVE,
+        ]);
+    }
 
-//    public function __construct()
-//    {
-//        $this->em = EntityManager::getRepository(\App\Entities\Image::class);
-//
-//    }
     /**
      * @inheritDoc
      */

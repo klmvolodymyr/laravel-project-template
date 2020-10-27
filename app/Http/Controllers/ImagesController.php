@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTransformer\ImageDataTransformer;
 use App\Manager\ImageManager;
 use App\Manager\ImageManagerInterface;
 use App\Repositories\ImagesRepository;
@@ -26,11 +27,13 @@ class ImagesController extends Controller
 
     /**
      * ImagesController constructor.
-     * @param ImageManagerInterface $manager
+     *
+     * @param ImageManagerInterface     $manager
+     * @param ImagesRepositoryInterface $repository
      */
-    public function __construct(ImageManagerInterface $manager)
+    public function __construct(ImageManagerInterface $manager, ImagesRepositoryInterface $repository)
     {
-//        $this->repository = $repository;
+        $this->repository = $repository;
         $this->manager = $manager;
     }
 
@@ -62,10 +65,17 @@ class ImagesController extends Controller
      */
     public function showAll()
     {
-//        var_dump('a');die;
         $images = $this->repository->allActivePreview();
 
-        return view('components.images.all', ['images' => $images]);
+        return response()
+            ->json(
+                \array_map(
+                    function ($image) {
+                        return ImageDataTransformer::toArray($image);
+                    },
+                    $images
+                )
+            );
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Entities;
 
 use Doctrine\ORM\Mapping AS ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
+use Ramsey\Collection\CollectionInterface;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
@@ -26,7 +28,6 @@ class Image
      * @var int
      */
     protected $id;
-
 
     /**
      * @var UuidInterface
@@ -138,9 +139,9 @@ class Image
     }
 
     /**
-     * @return \Ramsey\Uuid\Doctrine\UuidType|null
+     * @return UuidInterface
      */
-    public function getUuid(): ?\Ramsey\Uuid\Doctrine\UuidType
+    public function getUuid(): UuidInterface
     {
         return $this->uuid;
     }
@@ -390,5 +391,13 @@ class Image
         }
 
         return $this;
+    }
+
+    /**
+     * @return ImageThumbnail[]|ArrayCollection
+     */
+    public function getThumbnails(): \ArrayAccess
+    {
+        return $this->thumbnails;
     }
 }

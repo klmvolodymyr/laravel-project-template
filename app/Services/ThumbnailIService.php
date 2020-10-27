@@ -10,16 +10,10 @@ use Intervention\Image\Image;
  *
  * @package App\Services
  */
-class ThumbnailIService //implements ThumbnailIServiceInterface
+class ThumbnailIService implements ThumbnailIServiceInterface
 {
-    public const THUMB_QUANTITY = 60;
-
     /**
-     * @param Image     $image
-     * @param string    $format
-     * @param int       $quantity
-     *
-     * @return string
+     * @inheritDoc
      */
     public function extractBase64Contents(Image $image, string $format = 'jpg', int $quantity = self::THUMB_QUANTITY): string
     {
@@ -27,11 +21,7 @@ class ThumbnailIService //implements ThumbnailIServiceInterface
     }
 
     /**
-     * @param Image $image
-     * @param int   $width
-     * @param int   $height
-     *
-     * @return Image
+     * @inheritDoc
      */
     public function resizeThumbnails(Image $image, int $width, int $height): Image
     {
@@ -39,14 +29,7 @@ class ThumbnailIService //implements ThumbnailIServiceInterface
     }
 
     /**
-     * @param Image     $image
-     * @param string    $name
-     * @param int       $width
-     * @param int       $height
-     * @param string    $format
-     * @param int       $quantity
-     *
-     * @return ImageThumbnail
+     * @inheritDoc
      */
     public function createImageThumbnail(
         Image $image,

@@ -2,6 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Entities\Image;
+use Doctrine\Common\Collections\Collection;
+
 /**
  * Interface ImagesRepositoryInterface
  *
@@ -9,6 +12,7 @@ namespace App\Repositories;
  */
 interface ImagesRepositoryInterface
 {
+
     /**
      * Get's a image by it's ID
      *
@@ -22,6 +26,13 @@ interface ImagesRepositoryInterface
      * @return mixed
      */
     public function all();
+
+    /**
+     * Get's all images.
+     *
+     * @return Image[]
+     */
+    public function allActivePreview(): array;
 
     /**
      * Deletes an image.

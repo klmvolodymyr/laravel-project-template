@@ -21,21 +21,21 @@ interface ImageManagerInterface
     /**
      * @param int $id
      *
-     * @return bool
+     * @return Image
      */
-    public function restore(int $id): bool;
+    public function restore(int $id): Image;
 
     /**
      * @param int $id
      *
-     * @return bool
+     * @return Image
      */
-    public function active(int $id): bool;
+    public function active(int $id): Image;
 
     /**
      * @param int $id
      *
-     * @return bool
+     * @return Image
      */
-    public function favorite(int $id): bool;
+    public function favorite(int $id): Image;
 }

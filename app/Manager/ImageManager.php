@@ -3,14 +3,15 @@
 namespace App\Manager;
 
 use App\Entities\Image;
-use LaravelDoctrine\ORM\Facades\EntityManager;
+use App\Entities\Type\ImageStatusType;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Class ImageManager
  *
  * @package App\Manager
  */
-class ImageManager implements ImageManagerInterface, ManagerInterface
+class ImageManager implements ImageManagerInterface
 {
     /**
      * @var EntityManager
@@ -30,14 +31,14 @@ class ImageManager implements ImageManagerInterface, ManagerInterface
     /**
      * @param Image $image
      *
-     * @return bool
+     * @return Image
      */
-    public function save(Image $image): bool
+    public function save(Image $image): Image
     {
         $this->em->persist($image);
         $this->em->flush();
 
-        return true;
+        return $image;
     }
 
     /**
@@ -53,61 +54,52 @@ class ImageManager implements ImageManagerInterface, ManagerInterface
         return $image;
     }
 
-    public function restore(int $id): void
+    /**
+     * @param int $id
+     *
+     * @return Image
+     */
+    public function restore(int $id): Image
     {
-        $image = $this->em->
-    }
-//
-//    public function remove(int $id): void
-//    {
-//
-//    }
-//
-//    public function active(int $id): void
-//    {
-//        // TODO: Implement active() method.
-//    }
-//
-//    public function favorite(int $id): void
-//    {
-//        // TODO: Implement favorite() method.
-//    }
-//    public function save($entity)
-//    {
-//        // TODO: Implement save() method.
-//    }
-//
-//    public function restore(int $id): void
-//    {
-//        // TODO: Implement restore() method.
-//    }
-//
-//    public function remove(int $id)
-//    {
-//        // TODO: Implement remove() method.
-//    }
-//
-//    public function active(int $id): void
-//    {
-//        // TODO: Implement active() method.
-//    }
-//
-//    public function favorite(int $id): void
-//    {
-//        // TODO: Implement favorite() method.
-//    }
-    public function remove(int $id)
-    {
-        // TODO: Implement remove() method.
+        $image = $this->load($id);
+        $image->setStatus(ImageStatusType::STATUS_RESTORED);
+
+        return $this->save($image);
     }
 
-    public function active(int $id): void
+    /**
+     * @param int $id
+     *
+     * @return Image
+     */
+    public function active(int $id): Image
     {
-        // TODO: Implement active() method.
+        $image = $this->load($id);
+        $image->setStatus(ImageStatusType::STATUS_ACTIVE);
+
+        return $this->save($image);
     }
 
-    public function favorite(int $id): void
+    /**
+     * @param int $id
+     *
+     * @return Image
+     */
+    public function favorite(int $id): Image
     {
-        // TODO: Implement favorite() method.
+        $image = $this->load($id);
+        $image->setStatus(ImageStatusType::STATUS_ACTIVE);
+
+        return $this->save($image);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Image
+     */
+    public function load(int $id): Image
+    {
+        return $this->em->find(Image::class, $id);
     }
 }

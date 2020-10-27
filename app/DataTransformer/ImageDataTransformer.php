@@ -5,7 +5,8 @@ namespace App\DataTransformer;
 
 use App\DTO\CreateImageDTO;
 use App\Entities\Image;
-use App\Models\Type\ImageStatusType;
+use App\Entities\ImageThumbnail;
+use App\Entities\Type\ImageStatusType;
 
 /**
  * Class ImageDataTransformer
@@ -70,5 +71,25 @@ class ImageDataTransformer
         $dto->createdAt = new \DateTimeImmutable();
 
         return $dto;
+    }
+
+    /**
+     * @param Image $image
+     *
+     * @return array
+     */
+    public static function toArray(Image $image): array
+    {
+        return [
+            'id' => $image->getId(),
+            'uuid' => $image->getUuid()->getHex()->toString(),
+            'url' => $image->getUrlPath(),
+            'preview' => \array_map(function (ImageThumbnail $thumbnail){
+                return [
+                    'uuid' => $thumbnail->getUuid()->getHex()->toString(),
+                    'base64' => $thumbnail->getBase64(),
+                ];
+            }, $image->getThumbnails()->getValues())
+        ];
     }
 }

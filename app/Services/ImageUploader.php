@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use App\DTO\ImageDTO;
 use App\DataTransformer\ImageDataTransformer;
-use App\Manager\ImageManager;
 use App\Manager\ImageManagerInterface;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -36,14 +34,14 @@ class ImageUploader implements ImageUploaderInterface
     /**
      * ImageUploader constructor.
      *
-     * @param LoggerInterface   $logger
-     * @param ImageManager      $manager
-     * @param ThumbnailIService $thumbnailIService
+     * @param LoggerInterface            $logger
+     * @param ImageManagerInterface      $manager
+     * @param ThumbnailIServiceInterface $thumbnailIService
      */
     public function __construct(
         LoggerInterface $logger,
-        ImageManager $manager,
-        ThumbnailIService $thumbnailIService
+        ImageManagerInterface $manager,
+        ThumbnailIServiceInterface $thumbnailIService
     ){
         $this->logger = $logger;
         $this->manager = $manager;
