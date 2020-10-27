@@ -1,18 +1,39 @@
 <?php
 
 
-namespace App\Factory;
+namespace App\DataTransformer;
 
 use App\DTO\CreateImageDTO;
+use App\Entities\Image;
 use App\Models\Type\ImageStatusType;
 
 /**
- * Class ImageFactory
+ * Class ImageDataTransformer
  *
- * @package App\Factory
+ * @package App\DataTransformer
  */
-class ImageFactory
+class ImageDataTransformer
 {
+    /**
+     * @param CreateImageDTO $dto
+     *
+     * @return Image
+     */
+    public static function createImageFromDTO(CreateImageDTO $dto): Image
+    {
+        return (new Image())
+            ->setChecksum($dto->checksum)
+            ->setFileName($dto->fileName)
+            ->setFilePath($dto->filePath)
+            ->setFileSize($dto->fileSize)
+            ->setHeight($dto->height)
+            ->setWidth($dto->width)
+            ->setMimeType($dto->mimeType)
+            ->setStatus($dto->status)
+            ->setUpdatedAt((new \DateTime()))
+            ->setUrlPath($dto->urlPath);
+    }
+
     /**
      * @param string $checksum
      * @param string $fileName

@@ -26,13 +26,11 @@ class ImagesController extends Controller
 
     /**
      * ImagesController constructor.
-     *
-     * @param ImagesRepository $repository
-     * @param ImageManager      $manager
+     * @param ImageManagerInterface $manager
      */
-    public function __construct(ImagesRepository $repository, ImageManager $manager)
+    public function __construct(ImageManagerInterface $manager)
     {
-        $this->repository = $repository;
+//        $this->repository = $repository;
         $this->manager = $manager;
     }
 
@@ -64,6 +62,7 @@ class ImagesController extends Controller
      */
     public function showAll()
     {
+//        var_dump('a');die;
         $images = $this->repository->allActivePreview();
 
         return view('components.images.all', ['images' => $images]);

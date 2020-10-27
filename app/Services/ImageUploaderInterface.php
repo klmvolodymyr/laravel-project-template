@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DTO\ImageDTO;
+use App\Entities\Image as ImageEntity;
 
 /**
  * Interface ImageUploaderInterface
@@ -14,7 +15,7 @@ interface ImageUploaderInterface
     /**
      * @param string $imagePath
      *
-     * @return ImageDTO
+     * @return ImageEntity
      */
-    public function uploadByPath(string $imagePath): ImageDTO;
+    public function uploadByPath(string $imagePath): ImageEntity;
 }

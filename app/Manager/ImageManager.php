@@ -2,12 +2,8 @@
 
 namespace App\Manager;
 
-use App\DTO\CreateImageDTO;
-use App\DTO\ImageDTO;
-use App\Models\Image;
-use App\Models\Type\ImageStatusType;
-use Ramsey\Uuid\Uuid;
-
+use App\Entities\Image;
+use LaravelDoctrine\ORM\Facades\EntityManager;
 
 /**
  * Class ImageManager
@@ -17,46 +13,92 @@ use Ramsey\Uuid\Uuid;
 class ImageManager implements ImageManagerInterface, ManagerInterface
 {
     /**
-     * @param CreateImageDTO $dto
-     *
-     * @return ImageDTO
+     * @var EntityManager
      */
-    public function create(CreateImageDTO $dto): ImageDTO
-    {
-        $image = new Image();
-        $image->urlPath = $dto->urlPath;
-        $image->mimeType = $dto->mimeType;
-        $image->height = $dto->height;
-        $image->width = $dto->width;
-        $image->fileSize = $dto->fileSize;
-        $image->urlPath = $dto->urlPath;
-        $image->filePath = $dto->filePath;
-        $image->fileName = $dto->fileName;
-        $image->uuid = Uuid::uuid1();
-        $image->status = ImageStatusType::STATUS_NEW;
-        $image->createdAt = new \DateTime();
-        $image->updatedAt = new \DateTime();
-        $image->save();
+    private $em;
 
-        $image = new ImageDTO();
-//        $image->id = Response::json(array('success' => true, 'last_insert_id' => $data->id), 200);
+    /**
+     * ImageManager constructor.
+     *
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+    /**
+     * @param Image $image
+     *
+     * @return bool
+     */
+    public function save(Image $image): bool
+    {
+        $this->em->persist($image);
+        $this->em->flush();
+
+        return true;
+    }
+
+    /**
+     * @param Image $image
+     *
+     * @return Image
+     */
+    public function create(Image $image): Image
+    {
+        $this->em->persist($image);
+        $this->em->flush();
 
         return $image;
     }
 
-    public function save(array $entity)
-    {
-//        return self::§
-    }
-
     public function restore(int $id): void
     {
-        // TODO: Implement restore() method.
+        $image = $this->em->
     }
-
-    public function remove(int $id): void
+//
+//    public function remove(int $id): void
+//    {
+//
+//    }
+//
+//    public function active(int $id): void
+//    {
+//        // TODO: Implement active() method.
+//    }
+//
+//    public function favorite(int $id): void
+//    {
+//        // TODO: Implement favorite() method.
+//    }
+//    public function save($entity)
+//    {
+//        // TODO: Implement save() method.
+//    }
+//
+//    public function restore(int $id): void
+//    {
+//        // TODO: Implement restore() method.
+//    }
+//
+//    public function remove(int $id)
+//    {
+//        // TODO: Implement remove() method.
+//    }
+//
+//    public function active(int $id): void
+//    {
+//        // TODO: Implement active() method.
+//    }
+//
+//    public function favorite(int $id): void
+//    {
+//        // TODO: Implement favorite() method.
+//    }
+    public function remove(int $id)
     {
-
+        // TODO: Implement remove() method.
     }
 
     public function active(int $id): void

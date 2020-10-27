@@ -4,6 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Class ImagesTable
+ */
 class ImagesTable extends Migration
 {
     /**
@@ -15,7 +18,7 @@ class ImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table){
             $table->id()->nullable(false)->autoIncrement();
-            $table->char('uuid', 32)->unique();
+            $table->char('uuid', 36)->unique();
             $table->string('file_name', 255)->nullable(false)->index();
             $table->string('file_path', 255)->nullable(false);
             $table->smallInteger('file_size', false, true)->nullable(false);
@@ -26,9 +29,8 @@ class ImagesTable extends Migration
             $table->smallInteger('height', false, true)->nullable(false);
             $table->string('checksum', 255)->nullable(false);
             $table->smallInteger('language_id', false, true)->default(0);
-            $table->smallInteger('status', false, true)->default(0);
+            $table->string('status', 128)->default(0);
             $table->string('mime_type', 255)->nullable(false);
-//            $table->longText('file');
         });
     }
 

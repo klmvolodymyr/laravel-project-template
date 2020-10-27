@@ -2,8 +2,7 @@
 
 namespace App\Manager;
 
-use App\DTO\CreateImageDTO;
-use App\DTO\ImageDTO;
+use App\Entities\Image;
 
 /**
  * Interface ImageManagerInterface
@@ -13,34 +12,30 @@ use App\DTO\ImageDTO;
 interface ImageManagerInterface
 {
     /**
-     * @param CreateImageDTO $dto
+     * @param Image $entity
      *
-     * @return ImageDTO
+     * @return Image
      */
-    public function create(CreateImageDTO $dto): ImageDTO;
-
-    /**
-     * @param array $entity
-     */
-    public function save(array $entity);
+    public function create(Image $entity): Image;
 
     /**
      * @param int $id
+     *
+     * @return bool
      */
-    public function restore(int $id): void;
+    public function restore(int $id): bool;
 
     /**
      * @param int $id
+     *
+     * @return bool
      */
-    public function remove(int $id): void;
+    public function active(int $id): bool;
 
     /**
      * @param int $id
+     *
+     * @return bool
      */
-    public function active(int $id): void;
-
-    /**
-     * @param int $id
-     */
-    public function favorite(int $id): void;
+    public function favorite(int $id): bool;
 }

@@ -3,14 +3,13 @@
 namespace App\Services;
 
 use App\DTO\ImageDTO;
-use App\Factory\ImageFactory;
+use App\DataTransformer\ImageDataTransformer;
 use App\Manager\ImageManager;
 use App\Manager\ImageManagerInterface;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
-use Intervention\Image\File;
+use App\Entities\Image as ImageEntity;
 use Psr\Log\LoggerInterface;
-use Ramsey\Uuid\Uuid;
 
 /**
  * Class ImageUploader
@@ -30,29 +29,41 @@ class ImageUploader implements ImageUploaderInterface
     private $logger;
 
     /**
+     * @var ThumbnailIService
+     */
+    private $thumbnailIService;
+
+    /**
      * ImageUploader constructor.
      *
      * @param LoggerInterface   $logger
      * @param ImageManager      $manager
+     * @param ThumbnailIService $thumbnailIService
      */
-    public function __construct(LoggerInterface $logger, ImageManager $manager)
-    {
+    public function __construct(
+        LoggerInterface $logger,
+        ImageManager $manager,
+        ThumbnailIService $thumbnailIService
+    ){
         $this->logger = $logger;
         $this->manager = $manager;
+        $this->thumbnailIService = $thumbnailIService;
     }
 
     /**
      * @param string $imagePath
      *
-     * @return ImageDTO
+     * @return ImageEntity
      */
-    public function uploadByPath(string $imagePath): ImageDTO
+    public function uploadByPath(string $imagePath): ImageEntity
     {
         $this->logger->info('Screw that!');
         $file = Storage::get($imagePath);
         $img = Image::make($file);
+        $fileName = $img->basename ?? $imagePath;
+        $thumbnail = $this->thumbnailIService->createImageThumbnail($img, $fileName, 250, 300);
 
-        $dto = ImageFactory::createCreateImageDTO(
+        $dto = ImageDataTransformer::createCreateImageDTO(
             md5($file),
             $img->basename ?? '',
             $img->basePath() ?? '',
@@ -63,9 +74,10 @@ class ImageUploader implements ImageUploaderInterface
             $img->mime()
         );
 
+        $image = ImageDataTransformer::createImageFromDTO($dto);
+        $image->addThumbnails($thumbnail);
+        $thumbnail->setImage($image);
 
-        $image = $this->manager->create($dto);
-
-        return $image;
+        return $this->manager->create($image);
     }
 }

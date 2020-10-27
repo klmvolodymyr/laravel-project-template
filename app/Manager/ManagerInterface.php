@@ -10,16 +10,14 @@ namespace App\Manager;
 interface ManagerInterface
 {
     /**
-     * @param $entity
-     *
-     * @return mixed entity
-     */
-    public function save($entity);
-
-    /**
-     * @param string $id
+     * @param mixed $entity
      *
      * @return bool
      */
-    public function remove(string $id): bool;
+    public function save($entity): bool;
+
+    /**
+     * @param int $id
+     */
+    public function remove(int $id);
 }

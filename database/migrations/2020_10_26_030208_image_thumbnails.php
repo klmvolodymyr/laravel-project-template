@@ -15,7 +15,7 @@ class ImageThumbnails extends Migration
     {
         Schema::create('image_thumbnails', function (Blueprint $table){
             $table->id()->nullable(false)->autoIncrement();
-            $table->char('uuid', 32)->unique();
+            $table->char('uuid', 36)->unique();
             $table->string('name', 254)->nullable(false)->index();
             $table->text('base64')->nullable(false);
             $table->integer('image_id');
