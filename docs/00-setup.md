@@ -26,3 +26,7 @@ php artisan test
 ```
 
 #### Yeah! It works! Congratulations! ####
+
+
+- [back](https://github.com/vkquant/12man/docs)
+- [main](https://github.com/vkquant/12man)

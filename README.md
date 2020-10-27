@@ -17,9 +17,9 @@ Run `php artisan test` to validate application state.
 
 
 ## Read more about below: 
-- [SETUP](docs/00-setup)
-- [CLI](docs/01-cli)
-- [API](docs/02-api)
-- [TESTING](docs/03-tests)
-- [RUN & DEPLOY](docs/04-run)
-- [DOCKER](docs/05-docker)
+- [SETUP](https://github.com/vkquant/12man/blob/master/docs/00-setup)
+- [CLI](https://github.com/vkquant/12man/blob/master/docs/01-cli.md)
+- [API](https://github.com/vkquant/12man/blob/master/docs/02-api.md)
+- [TESTING](https://github.com/vkquant/12man/blob/master/docs/03-tests.md)
+- [RUN & DEPLOY](https://github.com/vkquant/12man/blob/master/docs/04-run.md)
+- [DOCKER](https://github.com/vkquant/12man/blob/master/docs/05-docker.md)
