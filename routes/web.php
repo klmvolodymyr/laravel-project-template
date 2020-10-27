@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ImagesController;
+use App\Http\Controllers\ImageUploaderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/images', [ImagesController::class, 'showAll']);
-//Route::get('/image', [ImagesController::class, 'showAll']);
-//Route::get('/images', [ImagesController::class, 'showAll']);
+Route::get('/image/{id}/show', [ImagesController::class, 'show']);
+Route::patch('/image/{id}/restore', [ImagesController::class, 'restore']);
+Route::patch('/image/{id}/favorite', [ImagesController::class, 'addToFavorite']);
+Route::post('/image/upload', [ImageUploaderController::class, 'upload']);
+Route::delete('/image/{id}', [ImagesController::class, 'deleteImage']);

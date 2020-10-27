@@ -17,18 +17,18 @@ class SeederImagesCommand extends Command
     private const DEFAULT_IMAGE_PATH = 'public/taks-images';
 
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = 'seed:images';
+    protected $signature = 'app:images:seed';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = "This command process unzipped images. Resize, crop and creates thumbnails from fetched images, than storing processed results in database.";
 
     /**
      * @var ImageUploaderInterface

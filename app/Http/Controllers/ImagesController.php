@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTransformer\ImageDataTransformer;
-use App\Manager\ImageManager;
 use App\Manager\ImageManagerInterface;
-use App\Repositories\ImagesRepository;
 use App\Repositories\ImagesRepositoryInterface;
 
 /**
@@ -80,25 +78,48 @@ class ImagesController extends Controller
 
     /**
      * @param int $id
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function show(int $id)
+    {
+        $image = $this->manager->load($id);
+
+        return response()->json(ImageDataTransformer::toArray($image));
+    }
+    /**
+     * @param int $id
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function restore(int $id)
     {
-        $this->manager->restore($id);
+        $image = $this->manager->restore($id);
+
+        return response()->json(ImageDataTransformer::toArray($image));
     }
 
     /**
      * @param int $id
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function deleteImage(int $id)
     {
         $this->manager->remove($id);
+
+        return response();
     }
 
     /**
      * @param int $id
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function addToFavorite(int $id)
     {
-        $this->manager->favorite($id);
+        $image = $this->manager->favorite($id);
+
+        return response()->json(ImageDataTransformer::toArray($image));
     }
 }

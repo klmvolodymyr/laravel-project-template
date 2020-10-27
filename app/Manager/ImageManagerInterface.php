@@ -35,6 +35,13 @@ interface ImageManagerInterface
     /**
      * @param int $id
      *
+     * @return bool
+     */
+    public function remove(int $id): bool;
+
+    /**
+     * @param int $id
+     *
      * @return Image
      */
     public function favorite(int $id): Image;

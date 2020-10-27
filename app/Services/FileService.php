@@ -1,26 +1,35 @@
 <?php
 
-
 namespace App\Services;
 
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Madnest\Madzipper\Madzipper;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class FileService
  *
- * @package App\Services
+ * @package App\Services\
  */
 class FileService implements FileServiceInterface, UnzipFileInterface
 {
     /**
-     * @param UploadedFile  $file
-     * @param string        $path
-     * @param string        $fileName
+     * @var Madzipper
+     */
+    private $zipper;
+
+    /**
+     * FileService constructor.
      *
-     * @return string
+     * @param Madzipper $zipper
+     */
+    public function __construct(Madzipper $zipper)
+    {
+        $this->zipper = $zipper;
+    }
+
+    /**
+     * @inheritDoc
      */
     public function uploadZipAndUnZip(UploadedFile $file, string $path, string $fileName): string
     {
@@ -36,37 +45,32 @@ class FileService implements FileServiceInterface, UnzipFileInterface
 
                 $this->unzip(storage_path($sourcePath), public_path($destinationPath));
 
-                $htmlFileName = $this->findImagesFileInFolder(public_path($destinationPath));
-
-                return url($destinationPath . '/' . $htmlFileName);
+                return url($destinationPath . '/' . $this->findImagesFileNameInFolder(public_path($destinationPath)));
             }
-
         } catch (\Exception $e) {
             return $e->getMessage();
         }
     }
 
     /**
-     * @param $pathToFile
-     * @param $extractTo
-     * @throws \Exception
+     * @inheritDoc
      */
-    public function unzip($pathToFile, $extractTo)
+    public function unzip(string $pathToFile, string $extractTo): bool
     {
-        $zipper = new \Madnest\Madzipper\Madzipper;
+        var_dump($this->zipper);
+        die;
+        $this->zipper->make($pathToFile)->extractTo($extractTo);
+        $this->zipper->close();
 
-        $zipper->make($pathToFile)->extractTo($extractTo);
-
-        $zipper->close();
+        return true;
     }
 
-
     /**
-     * @param $pathToFolder
+     * @param string$pathToFolder
      *
-     * @return string
+     * @return string|null
      */
-    public function findImagesFileInFolder($pathToFolder)
+    private function findImagesFileNameInFolder(string $pathToFolder): ?string
     {
         foreach (Storage::disk('local')->allFiles($pathToFolder) as $file) {
             if ($file->getExtension() == 'jpg') {

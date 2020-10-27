@@ -175,8 +175,16 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ImageUploadProvider::class,
 
+        //
+        App\Providers\ImageManagerProvider::class,
+        App\Providers\ImageUploadProvider::class,
+        App\Providers\ImageRepositoryProvider::class,
+
+        //
+        App\Providers\FileServicesProvider::class,
+        App\Providers\ThumbnailIServiceProvider::class,
+        App\Providers\FileServicesProvider::class,
     ],
 
     /*

@@ -1,9 +1,7 @@
 <?php
 
-
 namespace App\Console\Commands;
 
-use App\Services\FileService;
 use App\Services\UnzipFileInterface;
 use Illuminate\Console\Command;
 
@@ -17,18 +15,20 @@ class UnzipSeedImagesCommand extends Command
     private const DEFAULT_ARCHIVE_PATH = 'task-images.zip';
 
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = 'seed:images:prepeare';
+    protected $signature = 'app:images:unzip
+                {--archPath= : The database connection to use}
+                {--extractTo= : The path where the schema dump file should be stored}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Unzip providen archive with photos for seeding.';
 
     /**
      * @var UnzipFileInterface
@@ -38,9 +38,9 @@ class UnzipSeedImagesCommand extends Command
     /**
      * UnzipSeedImagesCommand constructor.
      *
-     * @param FileService $fileService
+     * @param UnzipFileInterface $fileService
      */
-    public function __constructor(FileService $fileService)
+    public function __constructor(UnzipFileInterface $fileService)
     {
         $this->fileService = $fileService;
     }
@@ -52,7 +52,10 @@ class UnzipSeedImagesCommand extends Command
      */
     public function handle()
     {
-//        $this->fileService->unzip()
+        $pathToFile = $this->input->getOption('archPath') ?? self::DEFAULT_ARCHIVE_PATH;
+        $extractTo = $this->input->getOption('extractTo');
+
+        $this->fileService->unzip($pathToFile, $extractTo);
 
         return 0;
     }

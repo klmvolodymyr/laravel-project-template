@@ -17,7 +17,7 @@ class GerAllAcitveImagesTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testShowAllImages()
     {
         $response = $this->get('/images');
         $content = $response->getContent();

@@ -9,11 +9,14 @@ use App\Manager\ImageManager;
 use App\Manager\ImageManagerInterface;
 use App\Repositories\ImagesRepository;
 use App\Repositories\ImagesRepositoryInterface;
+use App\Services\FileService;
 use App\Services\ImageUploader;
 use App\Services\ImageUploaderInterface;
 use App\Services\ThumbnailIServiceInterface;
+use App\Services\UnzipFileInterface;
 use Illuminate\Support\ServiceProvider;
 use LaravelDoctrine\ORM\Facades\EntityManager;
+use Madnest\Madzipper\Madzipper;
 
 /**
  * Class ImageUploadProvider
@@ -29,44 +32,9 @@ class ImageUploadProvider extends ServiceProvider
      */
     public function register()
     {
-
-        $this->app->bind(
-            'App\Repositories\ImagesRepositoryInterface',
-            'App\Repositories\ImagesRepository'
-        );
-
-        $this->app->bind(
-            'App\Repositories\ImagesRepository',
-            function ($app) {
-                return new ImagesRepository(
-                    $app['em'],
-                    $app['em']->getClassMetaData(Image::class)
-                );
-        });
-
-
-
-        $this->app->bind(
-            'App\Manager\ImageManagerInterface',
-            'App\Manager\ImageManager',
-        );
-//
-        $this->app->when(ImageManagerInterface::class)
-            ->give(function () {
-                $em = EntityManager::getRepository(Image::class);
-
-                return new ImageManager($em);
-            });
-
-
         $this->app->bind(
             'App\Services\ImageUploaderInterface',
             'App\Services\ImageUploader'
-        );
-
-        $this->app->bind(
-            'App\Services\ThumbnailIServiceInterface',
-            'App\Services\ThumbnailIService'
         );
     }
 

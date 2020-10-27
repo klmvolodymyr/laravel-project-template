@@ -29,9 +29,7 @@ class ImageManager implements ImageManagerInterface
     }
 
     /**
-     * @param Image $image
-     *
-     * @return Image
+     * @inheritDoc
      */
     public function save(Image $image): Image
     {
@@ -42,9 +40,7 @@ class ImageManager implements ImageManagerInterface
     }
 
     /**
-     * @param Image $image
-     *
-     * @return Image
+     * @inheritDoc
      */
     public function create(Image $image): Image
     {
@@ -55,9 +51,7 @@ class ImageManager implements ImageManagerInterface
     }
 
     /**
-     * @param int $id
-     *
-     * @return Image
+     * @inheritDoc
      */
     public function restore(int $id): Image
     {
@@ -68,9 +62,7 @@ class ImageManager implements ImageManagerInterface
     }
 
     /**
-     * @param int $id
-     *
-     * @return Image
+     * @inheritDoc
      */
     public function active(int $id): Image
     {
@@ -81,22 +73,31 @@ class ImageManager implements ImageManagerInterface
     }
 
     /**
-     * @param int $id
-     *
-     * @return Image
+     * @inheritDoc
      */
     public function favorite(int $id): Image
     {
         $image = $this->load($id);
-        $image->setStatus(ImageStatusType::STATUS_ACTIVE);
+        $image->setStatus(ImageStatusType::STATUS_FAVORITE);
 
         return $this->save($image);
     }
 
     /**
-     * @param int $id
-     *
-     * @return Image
+     * @inheritDoc
+     */
+    public function remove(int $id): bool
+    {
+        $image = $this->load($id);
+        $image->setStatus(ImageStatusType::STATUS_REMOVED);
+
+        $this->save($image);
+
+        return true;
+    }
+
+    /**
+     * @inheritDoc
      */
     public function load(int $id): Image
     {

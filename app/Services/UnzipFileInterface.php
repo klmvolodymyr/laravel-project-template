@@ -3,8 +3,6 @@
 
 namespace App\Services;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 /**
  * Interface UnzipFileInterface
  *
@@ -12,5 +10,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 interface UnzipFileInterface
 {
-    public function unzip($pathToFile, $extractTo);
+    /**
+     * @param string $pathToFile
+     * @param string $extractTo
+     *
+     * @return bool
+     */
+    public function unzip(string $pathToFile, string $extractTo): bool;
 }
