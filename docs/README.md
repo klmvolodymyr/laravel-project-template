@@ -1,20 +1,13 @@
-### Configurations
-- [setup](https://github.com/vkquant/12man/blob/master/docs/00-setup.md)
-- [tests](https://github.com/vkquant/12man/blob/master/docs/03-tests.md)
-- [run](https://github.com/vkquant/12man/blob/master/docs/04-run.md)
-- [docker](https://github.com/vkquant/12man/blob/master/docs/05-docker.md)
+### Configurations:
+- [SETUP](https://github.com/vkquant/12man/blob/master/docs/00-setup.md)
+- [TESTING](https://github.com/vkquant/12man/blob/master/docs/03-tests.md)
+- [RUN](https://github.com/vkquant/12man/blob/master/docs/04-run.md)
+- [DOCKER](https://github.com/vkquant/12man/blob/master/docs/05-docker.md)
 
 
-### Application usage.
+### Application usage:
+We have two ways to interact with application:
 
-We have two channels to interact with application:
-```
-  1) Using CLI. 
-  2) Using REST API.
-```
+   Using [CLI](https://github.com/vkquant/12man/blob/master/docs/01-cli.md)
 
-- [cli](https://github.com/vkquant/12man/blob/master/docs/01-cli.md)
-- [api](https://github.com/vkquant/12man/blob/master/docs/02-api.md)
-
-
-- [back](https://github.com/vkquant/12man)
+   Using [REST API](https://github.com/vkquant/12man/blob/master/docs/02-api.md)
